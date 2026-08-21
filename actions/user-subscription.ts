@@ -1,6 +1,6 @@
 "use server";
 
-import { auth, currentUser } from "@clerk/nextjs";
+import { auth, currentUser } from "@clerk/nextjs/server";
 
 import { stripe } from "@/lib/stripe";
 import { absoluteUrl } from "@/lib/utils";
@@ -14,6 +14,12 @@ export const createStripeUrl = async () => {
 
   if (!userId || !user) {
     throw new Error("Unauthorized");
+  }
+
+  const userEmail = user.emailAddresses[0]?.emailAddress;
+
+  if (!userEmail) {
+    throw new Error("User email not found");
   }
 
   const userSubscription = await getUserSubscription();
@@ -30,17 +36,17 @@ export const createStripeUrl = async () => {
   const stripeSession = await stripe.checkout.sessions.create({
     mode: "subscription",
     payment_method_types: ["card"],
-    customer_email: user.emailAddresses[0].emailAddress,
+    customer_email: userEmail,
     line_items: [
       {
         quantity: 1,
         price_data: {
-          currency: "USD",
+          currency: "USD", // Altere para "BRL" se for cobrar em Reais
           product_data: {
-            name: "Lingo Pro",
+            name: "Lingo Pro", // Altere para o nome da sua marca
             description: "Unlimited Hearts",
           },
-          unit_amount: 2000, // $20.00 USD
+          unit_amount: 2000, // $20.00 USD (ou R$ 20,00 se alterar para BRL)
           recurring: {
             interval: "month",
           },
