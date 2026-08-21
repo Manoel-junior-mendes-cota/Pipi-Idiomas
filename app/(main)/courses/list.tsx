@@ -3,15 +3,19 @@
 import { toast } from "sonner";
 import { useTransition } from "react";
 import { useRouter } from "next/navigation";
+import { type InferSelectModel } from "drizzle-orm";
 
 import { courses, userProgress } from "@/db/schema";
 import { upsertUserProgress } from "@/actions/user-progress";
 
 import { Card } from "./card";
 
+type CourseType = InferSelectModel<typeof courses>;
+type UserProgressType = InferSelectModel<typeof userProgress>;
+
 type Props = {
-  courses: typeof courses.$inferSelect[];
-  activeCourseId?: typeof userProgress.$inferSelect.activeCourseId;
+  courses: CourseType[];
+  activeCourseId?: UserProgressType["activeCourseId"];
 };
 
 export const List = ({ courses, activeCourseId }: Props) => {
@@ -25,9 +29,14 @@ export const List = ({ courses, activeCourseId }: Props) => {
       return router.push("/learn");
     }
 
-    startTransition(() => {
-      upsertUserProgress(id)  
-        .catch(() => toast.error("Something went wrong."));
+    startTransition(async () => {
+      try {
+        await upsertUserProgress(id);
+      } catch (error) {
+        // Ignora o erro do redirecionamento interno do Next.js
+        if ((error as Error)?.message === "NEXT_REDIRECT") return;
+        toast.error("Algo deu errado. Tente novamente.");
+      }
     });
   };
 
