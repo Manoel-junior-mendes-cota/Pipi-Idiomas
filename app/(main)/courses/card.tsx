@@ -23,12 +23,20 @@ export const Card = ({
   return (
     <div
       onClick={() => onClick(id)}
+      role="button"
+      tabIndex={disabled ? -1 : 0}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          onClick(id);
+        }
+      }}
       className={cn(
         "h-full border-2 rounded-xl border-b-4 hover:bg-black/5 cursor-pointer active:border-b-2 flex flex-col items-center justify-between p-3 pb-6 min-h-[217px] min-w-[200px]",
-        disabled && "pointer-events-none opacity-50"
+        disabled && "pointer-events-none opacity-50",
+        active && "border-sky-500 bg-sky-500/5 hover:bg-sky-500/10"
       )}
     >
-      <div className="min-[24px] w-full flex items-center justify-end">
+      <div className="min-h-[24px] w-full flex items-center justify-end">
         {active && (
           <div className="rounded-md bg-green-600 flex items-center justify-center p-1.5">
             <Check className="text-white stroke-[4] h-4 w-4" />
