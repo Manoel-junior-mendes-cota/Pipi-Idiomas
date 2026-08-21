@@ -22,16 +22,17 @@ export const UnitBanner = ({
           {description}
         </p>
       </div>
-      <Link href="/lesson">
-        <Button
-          size="lg"
-          variant="secondary"
-          className="hidden xl:flex border-2 border-b-4 active:border-b-2"
-        >
-          <NotebookText className="mr-2" />
-          Continue
-        </Button>
-      </Link>
+      <Button
+        size="lg"
+        variant="secondary"
+        className="hidden xl:flex border-2 border-b-4 active:border-b-2"
+        asChild
+      >
+        <Link href="/lesson">
+          <NotebookText className="mr-2 h-5 w-5" />
+          Continuar
+        </Link>
+      </Button>
     </div>
   );
 };
