@@ -17,6 +17,9 @@ import {
 import { Unit } from "./unit";
 import { Header } from "./header";
 
+// Força o Next.js/Vercel a tratar esta rota como dinâmica a cada requisição
+export const dynamic = "force-dynamic";
+
 const LearnPage = async () => {
   const userProgressData = getUserProgress();
   const courseProgressData = getCourseProgress();
@@ -72,9 +75,9 @@ const LearnPage = async () => {
               description={unit.description}
               title={unit.title}
               lessons={unit.lessons}
-              activeLesson={courseProgress.activeLesson as typeof lessons.$inferSelect & {
+              activeLesson={courseProgress.activeLesson as (typeof lessons.$inferSelect & {
                 unit: typeof unitsSchema.$inferSelect;
-              } | undefined}
+              }) | undefined}
               activeLessonPercentage={lessonPercentage}
             />
           </div>
@@ -83,5 +86,5 @@ const LearnPage = async () => {
     </div>
   );
 };
- 
+
 export default LearnPage;
