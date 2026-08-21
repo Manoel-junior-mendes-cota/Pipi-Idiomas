@@ -2,14 +2,14 @@ import { getCourses, getUserProgress } from "@/db/queries";
 
 import { List } from "./list";
 
+// Garante que a Vercel trata essa rota como dinâmica a cada requisição
+export const dynamic = "force-dynamic";
+
 const CoursesPage = async () => {
   const coursesData = getCourses();
   const userProgressData = getUserProgress();
 
-  const [
-    courses,
-    userProgress,
-  ] = await Promise.all([
+  const [courses, userProgress] = await Promise.all([
     coursesData,
     userProgressData,
   ]);
@@ -17,10 +17,10 @@ const CoursesPage = async () => {
   return (
     <div className="h-full max-w-[912px] px-3 mx-auto">
       <h1 className="text-2xl font-bold text-neutral-700">
-        Language Courses
+        Cursos de Idiomas
       </h1>
       <List
-        courses={courses}
+        courses={courses ?? []}
         activeCourseId={userProgress?.activeCourseId}
       />
     </div>
