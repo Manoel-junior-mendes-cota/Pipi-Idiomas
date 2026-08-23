@@ -9,6 +9,9 @@ import { Progress } from "@/components/ui/progress";
 import { Promo } from "@/components/promo";
 import { quests } from "@/constants";
 
+// Força o Next.js/Vercel a tratar esta rota como dinâmica
+export const dynamic = "force-dynamic";
+
 const QuestsPage = async () => {
   const userProgressData = getUserProgress();
   const userSubscriptionData = getUserSubscription();
@@ -49,17 +52,17 @@ const QuestsPage = async () => {
             width={90}
           />
           <h1 className="text-center font-bold text-neutral-800 text-2xl my-6">
-            Quests
+            Missões
           </h1>
           <p className="text-muted-foreground text-center text-lg mb-6">
-            Complete quests by earning points.
+            Complete missões ganhando pontos nas lições.
           </p>
           <ul className="w-full">
             {quests.map((quest) => {
-              const progress = (userProgress.points / quest.value) * 100;
+              const progress = Math.min((userProgress.points / quest.value) * 100, 100);
 
               return (
-                <div
+                <li
                   className="flex items-center w-full p-4 gap-x-4 border-t-2"
                   key={quest.title}
                 >
@@ -75,8 +78,8 @@ const QuestsPage = async () => {
                     </p>
                     <Progress value={progress} className="h-3" />
                   </div>
-                </div>
-              )
+                </li>
+              );
             })}
           </ul>
         </div>
