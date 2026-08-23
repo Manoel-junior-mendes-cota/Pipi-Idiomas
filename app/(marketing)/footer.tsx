@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import { Button } from "@/components/ui/button";
 
 export const Footer = () => {
   return (
@@ -8,52 +8,52 @@ export const Footer = () => {
         <Button size="lg" variant="ghost" className="w-full">
           <Image 
             src="/hr.svg" 
-            alt="Croatian" 
+            alt="Croata" 
             height={32} 
             width={40}
             className="mr-4 rounded-md"
           />
-          Croatian
+          Croata
         </Button>
         <Button size="lg" variant="ghost" className="w-full">
           <Image 
             src="/es.svg" 
-            alt="Spanish" 
+            alt="Espanhol" 
             height={32} 
             width={40}
             className="mr-4 rounded-md"
           />
-          Spanish
+          Espanhol
         </Button>
         <Button size="lg" variant="ghost" className="w-full">
           <Image 
             src="/fr.svg" 
-            alt="French" 
+            alt="Francês" 
             height={32} 
             width={40}
             className="mr-4 rounded-md"
           />
-          French
+          Francês
         </Button>
         <Button size="lg" variant="ghost" className="w-full">
           <Image 
             src="/it.svg" 
-            alt="Italian" 
+            alt="Italiano" 
             height={32} 
             width={40}
             className="mr-4 rounded-md"
           />
-          Italian
+          Italiano
         </Button>
         <Button size="lg" variant="ghost" className="w-full">
           <Image 
             src="/jp.svg" 
-            alt="Japanese" 
+            alt="Japonês" 
             height={32} 
             width={40}
             className="mr-4 rounded-md"
           />
-          Japanese
+          Japonês
         </Button>
       </div>
     </footer>
