@@ -29,7 +29,7 @@ export const Items = ({
 
     startTransition(() => {
       refillHearts()
-        .catch(() => toast.error("Something went wrong"));
+        .catch(() => toast.error("Algo deu errado ao recarregar as vidas."));
     });
   };
 
@@ -41,22 +41,22 @@ export const Items = ({
             window.location.href = response.data;
           }
         })
-        .catch(() => toast.error("Something went wrong"));
+        .catch(() => toast.error("Algo deu errado ao redirecionar para o checkout."));
     });
   };
 
   return (
     <ul className="w-full">
-      <div className="flex items-center w-full p-4 gap-x-4 border-t-2">
+      <li className="flex items-center w-full p-4 gap-x-4 border-t-2">
         <Image 
           src="/heart.svg"
-          alt="Heart"
+          alt="Coração"
           height={60}
           width={60}
         />
         <div className="flex-1">
           <p className="text-neutral-700 text-base lg:text-xl font-bold">
-            Refill hearts
+            Recarregar vidas
           </p>
         </div>
         <Button
@@ -68,12 +68,12 @@ export const Items = ({
           }
         >
           {hearts === 5
-            ? "full"
+            ? "cheio"
             : (
-              <div className="flex items-center">
+              <div className="flex items-center gap-x-1">
                 <Image
                   src="/points.svg"
-                  alt="Points"
+                  alt="Pontos"
                   height={20}
                   width={20}
                 />
@@ -84,26 +84,26 @@ export const Items = ({
             )
           }
         </Button>
-      </div>
-      <div className="flex items-center w-full p-4 pt-8 gap-x-4 border-t-2">
+      </li>
+      <li className="flex items-center w-full p-4 pt-8 gap-x-4 border-t-2">
         <Image
           src="/unlimited.svg"
-          alt="Unlimited"
+          alt="Ilimitado"
           height={60}
           width={60}
         />
         <div className="flex-1">
           <p className="text-neutral-700 text-base lg:text-xl font-bold">
-            Unlimited hearts
+            Vidas ilimitadas
           </p>
         </div>
         <Button
           onClick={onUpgrade}
           disabled={pending}
         >
-          {hasActiveSubscription ? "settings" : "upgrade"}
+          {hasActiveSubscription ? "configurações" : "atualizar"}
         </Button>
-      </div>
+      </li>
     </ul>
   );
 };
